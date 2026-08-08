@@ -26,10 +26,23 @@ public class CliLauncherTests
     }
 
     [Fact]
-    public void DoublesBackslashesOnlyWhenTheyPrecedeAQuote()
+    public void LeavesABackslashTerminatedPathAloneWhenItNeedsNoQuoting()
     {
-        // C:\path\ stays as-is inside quotes except for the run before the closing quote.
-        Assert.Equal("\"C:\\path\\\\\"", CliLauncher.QuoteArgument("C:\\path\\"));
+        // No whitespace and no quote, so there is nothing to protect it from.
+        Assert.Equal(@"C:\path\", CliLauncher.QuoteArgument(@"C:\path\"));
+    }
+
+    [Fact]
+    public void DoublesTrailingBackslashesSoTheyDoNotEscapeTheClosingQuote()
+    {
+        // The space forces quoting; the final backslash then sits against the closing
+        // quote and must be doubled or CommandLineToArgvW reads it as an escape.
+        Assert.Equal("\"C:\\Program Files\\\\\"", CliLauncher.QuoteArgument(@"C:\Program Files\"));
+    }
+
+    [Fact]
+    public void DoublesBackslashesThatPrecedeAnEmbeddedQuote()
+    {
         Assert.Equal("\"a\\\\\\\"b\"", CliLauncher.QuoteArgument("a\\\"b"));
     }
 
