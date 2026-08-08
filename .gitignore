@@ -1,0 +1,11 @@
+bin/
+obj/
+publish/
+*.user
+*.suo
+.vs/
+.idea/
+.vscode/
+*.DotSettings.user
+TestResults/
+.DS_Store

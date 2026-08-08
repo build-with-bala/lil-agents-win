@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>LilAgents</AssemblyName>
+    <RootNamespace>LilAgents</RootNamespace>
+    <ApplicationIcon>Assets\icons\app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Version>1.0.0</Version>
+    <Product>lil agents</Product>
+    <Company>lil agents</Company>
+    <Description>Tiny AI companions that live on your Windows taskbar.</Description>
+    <!-- WPF cannot be trimmed: the XAML stack resolves types by reflection. -->
+    <PublishTrimmed>false</PublishTrimmed>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Sprites, sounds and icons are embedded so the published single-file exe
+         is genuinely self-contained: no loose asset folder to ship alongside. -->
+    <EmbeddedResource Include="Assets\sprites\**\*.png" />
+    <EmbeddedResource Include="Assets\sounds\**\*" />
+    <EmbeddedResource Include="Assets\icons\*.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Pure-managed Ed25519 for the OpenClaw device handshake. NSec would pull a
+         native libsodium, which breaks arm64 single-file publishing. -->
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="LilAgents.Tests" />
+  </ItemGroup>
+
+</Project>

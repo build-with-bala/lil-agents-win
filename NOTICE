@@ -1,0 +1,38 @@
+lil agents for Windows
+======================
+
+This project is a Windows port of "lil agents" by Ryan Stephen:
+
+    https://github.com/ryanstephen/lil-agents
+
+The original is a macOS application written in Swift/AppKit and licensed under the MIT
+License, Copyright (c) 2026 Ryan Stephen. That license and copyright notice are retained
+in full in the LICENSE file of this repository and apply to this derivative work.
+
+What is derived from the original
+---------------------------------
+
+* The application design: two characters walking on the dock/taskbar, click-to-open
+  themed popover terminals, provider switching, thinking bubbles.
+* The walk timing constants, movement curve, and per-character tuning values, which were
+  derived by the original author from frame-by-frame analysis of the walk animations.
+* The four colour themes (Peach, Midnight, Cloud, Moss), ported value-for-value.
+* The thinking and completion phrase lists.
+* The agent session protocol design and the per-provider CLI event parsing.
+
+Artwork and audio
+-----------------
+
+The character animations for Bruce and Jazz, and the completion sound effects, are the
+original author's work. The sprite frames in src/LilAgents/Assets/sprites were produced
+by transcoding the original transparent HEVC videos (walk-bruce-01.mov, walk-jazz-01.mov)
+to per-frame PNGs with an alpha channel, because no Windows media stack decodes HEVC's
+alpha auxiliary layer. They are the same artwork in a different container.
+
+What is new in this port
+------------------------
+
+All Windows platform code, written from scratch: taskbar geometry via SHAppBarMessage,
+layered-window management, WM_NCHITTEST alpha hit testing, per-monitor DPI handling,
+sprite animation and caching, the .cmd shim resolution layer, UTF-8 stream pumping,
+settings persistence, the tray menu, and the WPF UI.
