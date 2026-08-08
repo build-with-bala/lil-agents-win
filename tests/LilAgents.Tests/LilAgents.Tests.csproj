@@ -3,7 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
+    <!-- Deliberately no UseWindowsForms: the tests only touch WPF types, and adding
+         System.Drawing to the implicit usings would reintroduce the Color/FontFamily
+         ambiguity the main project disables implicit usings to avoid. -->
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>

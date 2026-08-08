@@ -6,7 +6,12 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Enabling both UseWPF and UseWindowsForms puts System.Drawing and
+         System.Windows.Forms into the implicit using set, which then collides with WPF
+         on Color, FontFamily, Button, TextBox, Image, Application and more. The global
+         set below is declared explicitly instead: WPF and WinForms namespaces are then
+         imported per file, by whichever one that file actually means. -->
+    <ImplicitUsings>disable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <AssemblyName>LilAgents</AssemblyName>
     <RootNamespace>LilAgents</RootNamespace>
@@ -21,6 +26,15 @@
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="System" />
+    <Using Include="System.Collections.Generic" />
+    <Using Include="System.IO" />
+    <Using Include="System.Linq" />
+    <Using Include="System.Threading" />
+    <Using Include="System.Threading.Tasks" />
+  </ItemGroup>
 
   <ItemGroup>
     <!-- Sprites, sounds and icons are embedded so the published single-file exe

@@ -5,8 +5,12 @@ namespace LilAgents.Platform;
 /// <summary>
 /// Win32 interop surface. Everything the app needs from user32/shell32 lives here so
 /// the rest of the codebase stays free of DllImport clutter.
+///
+/// Public rather than internal because RECT appears in the signatures of
+/// <see cref="TaskbarGeometry"/> and <see cref="LilAgents.UI.OverlayWindow"/>, and a
+/// public member cannot expose a less accessible type.
 /// </summary>
-internal static class Native
+public static class Native
 {
     // MARK: - Structs
 
