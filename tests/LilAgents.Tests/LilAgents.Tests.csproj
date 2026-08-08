@@ -7,13 +7,25 @@
          System.Drawing to the implicit usings would reintroduce the Color/FontFamily
          ambiguity the main project disables implicit usings to avoid. -->
     <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Same reasoning as the main project: turning on UseWPF swaps the implicit using
+         set for a desktop-flavoured one that omits System.IO, so the base namespaces are
+         declared explicitly below rather than inherited. -->
+    <ImplicitUsings>disable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
     <AssemblyName>LilAgents.Tests</AssemblyName>
     <RootNamespace>LilAgents.Tests</RootNamespace>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="System" />
+    <Using Include="System.Collections.Generic" />
+    <Using Include="System.IO" />
+    <Using Include="System.Linq" />
+    <Using Include="System.Threading" />
+    <Using Include="System.Threading.Tasks" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
