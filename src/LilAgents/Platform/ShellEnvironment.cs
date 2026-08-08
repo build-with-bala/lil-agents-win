@@ -62,7 +62,9 @@ public static class ShellEnvironment
 
         if (extraPaths is not null)
         {
-            var current = startInfo.Environment.TryGetValue("PATH", out var existing) ? existing : "";
+            // ProcessStartInfo.Environment is IDictionary<string, string?>, so a present
+            // key can still carry null.
+            var current = (startInfo.Environment.TryGetValue("PATH", out var existing) ? existing : "") ?? "";
             var additions = extraPaths
                 .Where(p => !string.IsNullOrWhiteSpace(p))
                 .Where(p => !current.Contains(p, StringComparison.OrdinalIgnoreCase))
