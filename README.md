@@ -44,11 +44,17 @@ Installed a CLI while the app was running? Tray → Provider → **Rescan for CL
 
 ## getting the exe
 
-Every push builds on CI. Grab `LilAgents-win-x64` (or `-win-arm64`) from the artifacts of
-the latest [build run](../../actions/workflows/build.yml).
+Download from [**Releases**](../../releases) — `LilAgents-win-x64.exe` for a normal PC,
+`LilAgents-win-arm64.exe` for Windows on ARM (Snapdragon X, Surface Pro X, or a Windows VM
+on an Apple Silicon Mac). No installer, no .NET, nothing to unzip: it is a single
+self-contained exe.
+
+Every push to `main` also builds, but those land as CI artifacts, which need a GitHub login
+and expire after 90 days. Tagged builds are what get promoted to a Release.
 
 Windows will show a **SmartScreen** warning the first time, because the exe is unsigned:
-click *More info* → *Run anyway*.
+click *More info* → *Run anyway*. First launch is a second or so slow while the runtime
+unpacks itself to a temp directory; later launches are not.
 
 ## building
 
